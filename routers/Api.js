@@ -68,6 +68,7 @@ router.post("/validate-rule", (req, res) => {
         });
     }
 
+    //checks if field is supplied
     if (!rule.field) {
         return res.status(400).json({
             message: "field is required.",
@@ -76,6 +77,7 @@ router.post("/validate-rule", (req, res) => {
         });
     }
 
+    //check if condition is supplied
     if (!rule.condition) {
         return res.status(400).json({
             message: "condition  is required.",
@@ -84,6 +86,7 @@ router.post("/validate-rule", (req, res) => {
         });
     }
 
+    //checks if condition value is supplied
     if (!rule.condition_value) {
         return res.status(400).json({
             message: "condition_value is required.",
