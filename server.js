@@ -22,7 +22,7 @@ app.use((error, req, res, next) => {
     });
 });
 
-//connects to mongodb atlas database
+//connects to mongodb atlas remote database
 const db =
     "mongodb+srv://osakpolor:daniel1995@cluster0.6awrn.mongodb.net/flutterwave?retryWrites=true&w=majority";
 
