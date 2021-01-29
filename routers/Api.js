@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
         .select("-_id -__v")
         .then((user) =>
             res.status(200).json({
-                message: "Details were succesfully gotten",
+                message: "My Rule-Validation API",
                 status: "success",
                 data: user[0],
             })
@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
 router.post("/validate-rule", (req, res) => {
     const { rule, data } = req.body;
 
-    //checks if required fields are passed
+    //checks if rule is passed
     if (!rule) {
         return res.status(400).json({
             message: "rule is required.",
@@ -33,9 +33,36 @@ router.post("/validate-rule", (req, res) => {
         });
     }
 
+    //checks if rule is an object
+    if (typeof rule !== "object") {
+        return res.status(400).json({
+            message: "rule should be of type object.",
+            status: "error",
+            data: null,
+        });
+    }
+
+    //checks if data is supplied
     if (!data) {
         return res.status(400).json({
             message: "data is required.",
+            status: "error",
+            data: null,
+        });
+    }
+
+    //checks if the data of the right type
+    if (typeof data !== "object" && typeof data !== "string") {
+        return res.status(400).json({
+            message: "data should be of type object,array or string.",
+            status: "error",
+            data: null,
+        });
+    }
+
+    if (rule.field === 0) {
+        return res.status(400).json({
+            message: "field should be a string.",
             status: "error",
             data: null,
         });
@@ -60,23 +87,6 @@ router.post("/validate-rule", (req, res) => {
     if (!rule.condition_value) {
         return res.status(400).json({
             message: "condition_value is required.",
-            status: "error",
-            data: null,
-        });
-    }
-
-    //checks if the fields are of the right type
-    if (typeof rule !== "object") {
-        return res.status(400).json({
-            message: "rule should be of type object.",
-            status: "error",
-            data: null,
-        });
-    }
-
-    if (typeof data !== "object" && typeof data !== "string") {
-        return res.status(400).json({
-            message: "data should be of type object,array or string.",
             status: "error",
             data: null,
         });
