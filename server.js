@@ -1,12 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-const Api = require("./routers/Api");
+const Api = require("./routers/routes");
 
 app = express();
 app.use(express.json());
 
-app.use("/my-validation-api/", Api);
+app.use("/", Api);
 
 //handles errors, when invalid Json in passed
 app.use((req, res, next) => {
@@ -22,6 +22,7 @@ app.use((error, req, res, next) => {
     });
 });
 
+//connects to mongodb atlas database
 const db =
     "mongodb+srv://osakpolor:daniel1995@cluster0.6awrn.mongodb.net/flutterwave?retryWrites=true&w=majority";
 
