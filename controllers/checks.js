@@ -1,8 +1,9 @@
+const validate = require("../functions/validate");
 // this controller handles checking if required fields are supplied
 // and if they are of the right types
 
 const checks = {
-    TypesAndSupplied(req, res) {
+    AllChecks(req, res, next) {
         const { rule, data } = req.body;
 
         //checks if rule is passed
@@ -91,7 +92,10 @@ const checks = {
                 data: null,
             });
         }
+
+        //when all checks are successful, calls the validate function
+        //and passes the req,res and next object to it
+        validate(req, res, next);
     },
 };
-
 module.exports = checks;
